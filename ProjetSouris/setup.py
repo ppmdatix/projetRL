@@ -70,13 +70,10 @@ class World:
 
         self.image = None
         self.mouseWin = None
-        self.catWin = None
         self.reset()
         self.load(filename)
 
     def get_file_size(self, filename):
-        if filename is None:
-            raise Exception("world file not exist!")
         data = file(filename).readlines()
         if self.height is None:
             self.height = len(data)
@@ -130,7 +127,7 @@ class World:
             for i in xrange(min(fw, len(line))):
                 self.grid[start_y + j][start_x + i].load(line[i])
 
-    def update(self, mouse_win=None, cat_win=None):
+    def update(self, mouse_win=None):
         if hasattr(self.Cell, 'update'):
             for a in self.agents:
                 a.update()
@@ -146,8 +143,7 @@ class World:
 
         if mouse_win:
             self.mouseWin = mouse_win
-        if cat_win:
-            self.catWin = cat_win
+
         self.display.update()
         self.age += 1
 
@@ -249,8 +245,6 @@ class TkinterDisplay:
         extra = []
         if world.mouseWin:
             extra.append('mouseWin=%d' % world.mouseWin)
-        if world.catWin:
-            extra.append('catWin=%d' % world.catWin)
         if world.display.paused:
             extra.append('paused')
         if world.display.updateEvery != 1:
@@ -269,11 +263,6 @@ class TkinterDisplay:
         title += ' %s' % self.make_title(self.world)
         if self.root.title() != title:
             self.root.title(title)
-
-    def pause(self, event=None):
-        self.paused = not self.paused
-        while self.paused:
-            self.update()
 
     def getBackground(self):
         if self.bg is None:
