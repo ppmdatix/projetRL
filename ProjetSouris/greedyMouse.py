@@ -116,7 +116,9 @@ class Mouse(setup.Agent):
                 return 1 if cell.wall else 0
 
         dirs = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
-        return tuple([cell_value(world.get_relative_cell(self.cell.x + dir[0], self.cell.y + dir[1])) for dir in dirs])
+        output = tuple([cell_value(world.get_relative_cell(self.cell.x + dir[0], self.cell.y + dir[1])) for dir in dirs])
+
+        return output
 
 
 if __name__ == '__main__':
@@ -142,10 +144,11 @@ if __name__ == '__main__':
 
     while 1:
         break
-    for _ in range(200):
+    for _ in range(30):
         world.update(mouse.mouseWin)
     print(mouse.ai.q)
     print(mouse.pathRewards)
+    print(mouse.ai.actions)
     """
     name = "strat"
     with open("jsonAI/" + name + ".json", 'w') as fp:

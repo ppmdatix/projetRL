@@ -26,5 +26,5 @@ REGRETS = - 1
 
 
 # determine how many directions can agent moves.
-directions = 4   # you may change it to 4: up,down,left and right.
+directions = 8   # you may change it to 4: up,down,left and right.
 
